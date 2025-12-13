@@ -6,42 +6,76 @@ import (
 	"net/http"
 	"time"
 
+	"flugou/backend/internal/auth"
+	"flugou/backend/internal/docs"
+
 	"github.com/go-chi/chi/v5"
+	"github.com/google/uuid"
+
 	"github.com/gorilla/websocket"
 )
 
-// ну модель дока
-type Document struct {
-	ID        string    `json:"id"`
-	Title     string    `json:"title"`
-	UpdatedAt time.Time `json:"updatedAt"`
+// Handlers - это структура для хранения зависимостей обработчиков, например, нашего хранилища.
+type Handlers struct {
+	docStore *docs.Store
+	authSvc  *auth.Service
 }
 
-// Пока что это ебучий мок
-var inMemoryDocs = map[string]Document{
-	"doc_123": {ID: "doc_123", Title: "Пример документа", UpdatedAt: time.Now()},
+// NewHandlers создает новый экземпляр Handlers с необходимыми зависимостями.
+func NewHandlers(docStore *docs.Store, authSvc *auth.Service) *Handlers {
+	return &Handlers{docStore: docStore, authSvc: authSvc}
 }
 
-func CreateDocHandler(w http.ResponseWriter, r *http.Request) {
-	doc := Document{
-		ID:        "doc_" + time.Now().Format("20060102150405"),
+func (h *Handlers) CreateDocHandler(w http.ResponseWriter, r *http.Request) {
+	doc := docs.Document{
+		ID:        uuid.NewString(), // Используем UUID для надежных уникальных ID
 		Title:     "Новый документ",
+		Content:   "",
 		UpdatedAt: time.Now(),
 	}
-	inMemoryDocs[doc.ID] = doc
+
+	h.docStore.CreateDoc(doc)
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{"id": doc.ID})
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(doc)
 }
 
-func GetDocHandler(w http.ResponseWriter, r *http.Request) {
+func (h *Handlers) GetDocHandler(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
-	if doc, ok := inMemoryDocs[id]; ok {
+
+	doc, ok := h.docStore.GetDoc(id)
+
+	if ok {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(doc)
 		return
 	}
-	http.Error(w, "Not found НЕТУ НЕ РАБОТАЕТ", http.StatusNotFound)
+	http.Error(w, "ДОК НЕ НАЙДЕН СУКИ", http.StatusNotFound)
+}
+
+type LoginRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+func (h *Handlers) LoginHandler(w http.ResponseWriter, r *http.Request) {
+	var req LoginRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	token, err := h.authSvc.Login(req.Username, req.Password)
+	if err != nil {
+		http.Error(w, "Фейл с датой", http.StatusUnauthorized)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{
+		"token": token,
+	})
 }
 
 // Эхо для теста вебсокета в котором я не ебу
@@ -49,7 +83,7 @@ var upgrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool { return true },
 }
 
-func WebSocketHandler(w http.ResponseWriter, r *http.Request) {
+func (h *Handlers) WebSocketHandler(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Printf("WebSocket upgrade error: %v", err)
