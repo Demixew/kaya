@@ -1,1 +1,453 @@
-Заметь, у нас у каждого своя желательно папка, чтобы мы не мешались и не конфликтовали!!!
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notion - Управление информацией</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.7;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: #ffffff;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 14px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .cta-button:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-button.secondary {
+            background-color: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+        }
+
+        .cta-button.secondary:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 20px;
+            background-color: #ffffff;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 44px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #000000;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            padding: 40px;
+            border: 2px solid #000000;
+            border-radius: 8px;
+            transition: all 0.3s;
+            background-color: #ffffff;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #000000;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: #333333;
+            line-height: 1.8;
+        }
+
+        /* Stats Section */
+        .stats {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 80px 20px;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stat-item p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-color: #f5f5f5;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .cta-section-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #000000;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: #333333;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 60px 20px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #cccccc;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333333;
+            padding-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #999999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            nav ul {
+                gap: 15px;
+                font-size: 12px;
+            }
+
+            .stat-item h3 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">Notion</div>
+            <nav>
+                <ul>
+                    <li><a href="#features">Возможности</a></li>
+                    <li><a href="#pricing">Тарифы</a></li>
+                    <li><a href="#about">О сервисе</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1>Все ваши идеи в одном месте</h1>
+            <p>Заметки, базы данных, вики и доски-всё, что вам нужно для организации и совместной работы</p>
+            <button class="cta-button">Начать бесплатно</button>
+            <button class="cta-button secondary">Посмотреть демо</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <h2 class="section-title">Мощные возможности</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Заметки и документы</h3>
+                    <p>Создавайте красиво оформленные заметки и документы. Форматируйте текст, добавляйте списки и многое другое.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Базы данных</h3>
+                    <p>Организуйте данные как в Excel, но с большей гибкостью. Таблицы, календари и представления для удобства.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Доски Канбан</h3>
+                    <p>Управляйте проектами и задачами с помощью удобных досок. Отслеживайте прогресс в реальном времени.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Совместная работа</h3>
+                    <p>Работайте вместе с командой. Общие рабочие пространства, комментарии и совместное редактирование.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3>Интеграции</h3>
+                    <p>Подключите ваши любимые приложения. API и встроенные интеграции для автоматизации рабочих процессов.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Безопасность</h3>
+                    <p>Ваши данные защищены. Шифрование, контроль доступа и резервные копии для полного спокойствия.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>10М+</h3>
+                    <p>Активных пользователей</p>
+                </div>
+                <div class="stat-item">
+                    <h3>150+</h3>
+                    <p>Стран по всему миру</p>
+                </div>
+                <div class="stat-item">
+                    <h3>99.9%</h3>
+                    <p>Доступность сервиса</p>
+                </div>
+                <div class="stat-item">
+                    <h3>24/7</h3>
+                    <p>Поддержка клиентов</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="pricing">
+        <div class="cta-section-container">
+            <h2>Готовы начать?</h2>
+            <p>Присоединитесь к миллионам пользователей, которые используют Notion для организации своей работы и жизни.</p>
+            <button class="cta-button">Создать бесплатный аккаунт</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Продукт</h4>
+                    <ul>
+                        <li><a href="#">Особенности</a></li>
+                        <li><a href="#">Цены</a></li>
+                        <li><a href="#">Безопасность</a></li>
+                        <li><a href="#">Статус</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Компания</h4>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="#">Карьера</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Ресурсы</h4>
+                    <ul>
+                        <li><a href="#">Помощь</a></li>
+                        <li><a href="#">Документация</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Сообщество</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Правовая информация</h4>
+                    <ul>
+                        <li><a href="#">Условия использования</a></li>
+                        <li><a href="#">Политика конфиденциальности</a></li>
+                        <li><a href="#">Лицензия</a></li>
+                        <li><a href="#">Файлы cookie</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Notion. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
