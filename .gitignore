@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 node_modules/
 .env
 .DS_Store
@@ -9,7 +8,6 @@ node_modules/
 .idea/
 dist/
 build/
-=======
 # Файлы зависимостей
 /frontend/node_modules
 /vendor
@@ -49,4 +47,3 @@ yarn-error.log*
 # Системники
 .DS_Store
 Thumbs.db
->>>>>>> 817d8ac849a964988916e1045fb39096d6df1560

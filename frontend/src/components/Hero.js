@@ -15,7 +15,7 @@ function Hero({ onRegisterClick }) {
           <button className="btn-primary" onClick={onRegisterClick}>
             Начать бесплатно
           </button>
-          <button className="btn-secondary">
+          <button className="btn-secondary" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
             Узнать больше
           </button>
         </div>
