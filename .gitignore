@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 node_modules/
 .env
 .DS_Store
@@ -8,3 +9,44 @@ node_modules/
 .idea/
 dist/
 build/
+=======
+# Файлы зависимостей
+/frontend/node_modules
+/vendor
+
+# Артефакты сборки фронтенда
+/frontend/build
+/frontend/.cache
+/dist
+
+# Логи и отладочные файлы
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Скомпилированные бинарные файлы Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Имя вашего бинарного файла бэкенда (пока хз)
+/backend/backend
+/backend/kaya
+
+# Файлы с переменными окружения
+.env
+.env.local
+.env.*.local
+
+# Файлы IDE
+.idea/
+.vscode/
+*.swp
+
+# Системники
+.DS_Store
+Thumbs.db
+>>>>>>> 817d8ac849a964988916e1045fb39096d6df1560
