@@ -5,19 +5,28 @@ import (
 	"net/http"
 	"time"
 
-	"flugou/backend/internal/auth"
-	"flugou/backend/internal/docs"
-	httpHandlers "flugou/backend/internal/http"
+	"kaya/backend/config"
+	"kaya/backend/internal/auth"
+	"kaya/backend/internal/docs"
+	httpHandlers "kaya/backend/internal/http"
+	"kaya/backend/internal/user"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
 
 func main() {
-	docStore := docs.NewStore()
-	authSvc := auth.NewService()
+	cfg := config.Load()
 
-	handlers := httpHandlers.NewHandlers(docStore, authSvc)
+	userStore, err := user.NewStore()
+	if err != nil {
+		log.Fatalf("Failed to init user store lmao: %v", err)
+	}
+
+	docStore := docs.NewStore()
+	authSvc := auth.NewService(userStore, cfg.JWTSecret, cfg.JWTExpiration)
+
+	handlers := httpHandlers.NewHandlers(docStore, authSvc, userStore)
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)

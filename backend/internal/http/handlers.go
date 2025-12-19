@@ -6,8 +6,9 @@ import (
 	"net/http"
 	"time"
 
-	"flugou/backend/internal/auth"
-	"flugou/backend/internal/docs"
+	"kaya/backend/internal/auth"
+	"kaya/backend/internal/docs"
+	"kaya/backend/internal/user"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
@@ -15,20 +16,19 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-// Handlers - это структура для хранения зависимостей обработчиков, например, нашего хранилища.
 type Handlers struct {
-	docStore *docs.Store
-	authSvc  *auth.Service
+	docStore  *docs.Store
+	authSvc   *auth.Service
+	userStore *user.Store
 }
 
-// NewHandlers создает новый экземпляр Handlers с необходимыми зависимостями.
-func NewHandlers(docStore *docs.Store, authSvc *auth.Service) *Handlers {
-	return &Handlers{docStore: docStore, authSvc: authSvc}
+func NewHandlers(docStore *docs.Store, authSvc *auth.Service, userStore *user.Store) *Handlers {
+	return &Handlers{docStore: docStore, authSvc: authSvc, userStore: userStore}
 }
 
 func (h *Handlers) CreateDocHandler(w http.ResponseWriter, r *http.Request) {
 	doc := docs.Document{
-		ID:        uuid.NewString(), // Используем UUID для надежных уникальных ID
+		ID:        uuid.NewString(),
 		Title:     "Новый документ",
 		Content:   "",
 		UpdatedAt: time.Now(),
