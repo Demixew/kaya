@@ -1,7 +1,7 @@
 import React from 'react';
 import './Hero.css';
 
-function Hero({ onRegisterClick }) {
+function Hero() {
   return (
     <section className="hero">
       <div className="hero-content">
@@ -12,7 +12,7 @@ function Hero({ onRegisterClick }) {
           Kaya - это мощный инструмент для создания заметок, планирования и организации всей вашей информации в одном месте.
         </p>
         <div className="hero-buttons">
-          <button className="btn-primary" onClick={onRegisterClick}>
+          <button className="btn-primary">
             Начать бесплатно
           </button>
           <button className="btn-secondary" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>

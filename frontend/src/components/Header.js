@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.css';
 
-function Header({ onRegisterClick, userToken }) {
+function Header({ onRegisterClick, userToken, onLogin }) {
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -10,7 +10,7 @@ function Header({ onRegisterClick, userToken }) {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     window.location.reload();
   };
 
@@ -34,8 +34,8 @@ function Header({ onRegisterClick, userToken }) {
               </button>
             </>
           ) : (
-            <button className="register-btn" onClick={onRegisterClick}>
-              Регистрация
+            <button className="login-btn" onClick={onLogin}>
+              Войти
             </button>
           )}
         </div>

@@ -1,0 +1,248 @@
+.main-blog {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.blog-header {
+  margin-bottom: 3rem;
+}
+
+.blog-header h1 {
+  font-size: 2.5rem;
+  margin: 0 0 0.5rem 0;
+  color: #1a1a1a;
+}
+
+.blog-header p {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0;
+}
+
+.blog-content {
+  display: grid;
+  gap: 3rem;
+}
+
+.recent-files h2,
+.suggestions h2,
+.quick-stats h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.files-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.file-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d0d0d0;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.file-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  border-color: #999;
+}
+
+.file-icon {
+  font-size: 2rem;
+  margin-right: 1.5rem;
+  color: #333;
+}
+
+.file-info {
+  flex: 1;
+}
+
+.file-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.file-preview {
+  margin: 0 0 1rem 0;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.file-meta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.file-type {
+  background: #f3f4f6;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #666;
+}
+
+.file-date {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.file-action {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+.file-action:hover {
+  opacity: 0.8;
+  background: #1a1a1a;
+}
+
+.suggestions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.suggestion-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d0d0d0;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.suggestion-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  border-color: #999;
+}
+
+.suggestion-icon {
+  font-size: 2rem;
+  margin-right: 1.5rem;
+  color: #333;
+}
+
+.suggestion-info {
+  flex: 1;
+}
+
+.suggestion-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.suggestion-info p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.suggestion-action {
+  background: #f3f4f6;
+  color: #333;
+  border: 1px solid #e5e7eb;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.suggestion-action:hover {
+  background: #e5e7eb;
+  border-color: #d1d5db;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d0d0d0;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  border-color: #999;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .blog-header h1 {
+    font-size: 2rem;
+  }
+  
+  .files-grid,
+  .suggestions-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .file-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .file-icon {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .suggestion-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .suggestion-icon {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}

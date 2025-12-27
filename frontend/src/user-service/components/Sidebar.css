@@ -1,0 +1,173 @@
+.sidebar {
+  width: 280px;
+  background: #1a1a1a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-header {
+  padding: 0 2rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 2rem;
+}
+
+.sidebar-header h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.sidebar-header p {
+  margin: 0;
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 0 1rem;
+}
+
+.nav-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  text-align: left;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item.active {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-icon {
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+
+.nav-text {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.sidebar-footer {
+  padding: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.user-profile {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  cursor: default;
+}
+
+.user-profile:hover {
+  background: rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+}
+
+.profile-icon {
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.profile-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+}
+
+.profile-email {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 0.25rem;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 1rem 0;
+  }
+  
+  .sidebar-header {
+    padding: 0 1rem 0 2rem;
+    border-bottom: none;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sidebar-header h2 {
+    font-size: 1.25rem;
+  }
+  
+  .sidebar-nav {
+    flex-direction: row;
+    padding: 0 1rem;
+    overflow-x: auto;
+  }
+  
+  .nav-item {
+    margin-right: 0.5rem;
+    margin-bottom: 0;
+    min-width: 120px;
+  }
+  
+  .sidebar-footer {
+    padding: 1rem;
+    border-top: none;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .user-profile {
+    margin-bottom: 0;
+  }
+}

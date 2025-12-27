@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './LoginModal.css';
 
-function LoginModal({ onClose, onSwitchToRegistration, onShowTerms }) {
+function LoginModal({ onClose, onSwitchToRegistration, onShowTerms, onLoginSuccess }) {
+  // Если onSwitchToRegistration не передана, создаем заглушку
+  const handleSwitchToRegistration = onSwitchToRegistration || (() => {});
   const [formData, setFormData] = useState({
     username: '',
     password: ''
@@ -82,7 +84,7 @@ function LoginModal({ onClose, onSwitchToRegistration, onShowTerms }) {
           </button>
 
           <p className="terms">
-            Нет аккаунта? <a href="#register" onClick={(e) => { e.preventDefault(); onSwitchToRegistration(); }}>Зарегистрироваться</a>
+            Нет аккаунта? <a href="#register" onClick={(e) => { e.preventDefault(); handleSwitchToRegistration(); }}>Зарегистрироваться</a>
           </p>
 
           <p className="terms">

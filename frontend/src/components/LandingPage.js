@@ -9,7 +9,7 @@ import RegistrationModal from './RegistrationModal';
 import LoginModal from './LoginModal';
 import TermsOfService from './TermsOfService';
 
-function LandingPage({ userToken }) {
+function LandingPage({ userToken, onLogin }) {
   const [showRegistration, setShowRegistration] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
@@ -45,15 +45,54 @@ function LandingPage({ userToken }) {
     setShowTerms(false);
   };
 
+  const handleLoginSuccess = (userData) => {
+    // Сохраняем данные пользователя в localStorage для персистентности
+    localStorage.setItem('user', JSON.stringify(userData));
+    // Вызываем функцию из AppRouter для установки состояния
+    if (onLogin) {
+      onLogin(userData);
+    }
+    // Закрываем модальные окна
+    setShowLogin(false);
+    setShowRegistration(false);
+  };
+
+  const handleRegistrationSuccess = (userData) => {
+    // Сохраняем данные пользователя в localStorage для персистентности
+    localStorage.setItem('user', JSON.stringify(userData));
+    // Вызываем функцию из AppRouter для установки состояния
+    if (onLogin) {
+      onLogin(userData);
+    }
+    // Закрываем модальные окна
+    setShowLogin(false);
+    setShowRegistration(false);
+  };
+
+  const handleOpenLogin = () => {
+    setShowLogin(true);
+    setShowRegistration(false);
+  };
+
+  // Проверяем, есть ли сохраненный пользователь в localStorage
+  const savedUser = localStorage.getItem('user');
+  const currentUser = savedUser ? JSON.parse(savedUser) : null;
+
+  // Если пользователь уже авторизован, перенаправляем на сервис
+  if (currentUser) {
+    // Перенаправляем на сервис
+    window.location.href = '/app';
+    return null;
+  }
+
   return (
     <div className="landing-page" id="home">
       <Header 
         onRegisterClick={handleOpenRegistration} 
-        userToken={userToken}
+        userToken={currentUser}
+        onLogin={handleOpenLogin}
       />
-      <Hero 
-        onRegisterClick={handleOpenRegistration}
-      />
+      <Hero />
       <About />
       <Features />
       <Pricing />
@@ -62,6 +101,7 @@ function LandingPage({ userToken }) {
           onClose={handleCloseRegistration}
           onSwitchToLogin={handleSwitchToLogin}
           onShowTerms={handleShowTerms}
+          onRegistrationSuccess={handleRegistrationSuccess}
         />
       )}
       {showLogin && (
@@ -69,6 +109,7 @@ function LandingPage({ userToken }) {
           onClose={handleCloseLogin}
           onSwitchToRegistration={handleSwitchToRegistration}
           onShowTerms={handleShowTerms}
+          onLoginSuccess={handleLoginSuccess}
         />
       )}
       {showTerms && (
