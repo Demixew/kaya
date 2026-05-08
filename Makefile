@@ -1,21 +1,27 @@
-.PHONY: run-backend run-frontend install-frontend build-frontend run
-
-run:
-	@echo "Запуск бэкенда и фронтенда..."
-	@make -j 2 run-backend run-frontend
-
-run-backend:
-	@echo "Запуск бэкенд-сервера..."
-	@cd backend && go run ./cmd/main.go
-
-run-frontend:
-	@echo "Запуск фронтенд-сервера для разработки..."
-	@cd frontend && npm start
+.PHONY: install-frontend install-backend run run-backend run-frontend build build-frontend build-backend clean
 
 install-frontend:
-	@echo "Установка зависимостей фронтенда..."
-	@cd frontend && npm install
+	cd frontend && npm install
+
+install-backend:
+	cd backend && go mod download
+
+run: run-backend run-frontend
+
+run-backend:
+	cd backend && go run ./cmd/main.go
+
+run-frontend:
+	cd frontend && npm run dev
 
 build-frontend:
-	@echo "Сборка фронтенда для продакшена..."
-	@cd frontend && npm run build
+	cd frontend && npm run build
+
+build-backend:
+	mkdir -p backend/bin
+	cd backend && go build -o ./bin/server ./cmd/main.go
+
+build: build-backend build-frontend
+
+clean:
+	rm -rf backend/bin

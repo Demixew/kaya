@@ -1,20 +1,25 @@
 package user
 
 import (
+	"context"
 	"database/sql"
 	"errors"
 	"fmt"
-	"log"
+	"strings"
 
 	"github.com/google/uuid"
 	_ "github.com/mattn/go-sqlite3"
 )
 
 type User struct {
-	ID           string
-	Username     string
-	PasswordHash string
+	ID           string `json:"id"`
+	Username     string `json:"username"`
+	PasswordHash string `json:"password_hash"`
 }
+
+var ErrUserExists = errors.New("user with this username already exists")
+
+var ErrUserNotFound = errors.New("user not found")
 
 type Store struct {
 	db *sql.DB
@@ -23,7 +28,7 @@ type Store struct {
 func NewStore() (*Store, error) {
 	db, err := sql.Open("sqlite3", "./kaya.db")
 	if err != nil {
-		return nil, fmt.Errorf("Could not oped db: %w", err)
+		return nil, fmt.Errorf("could not open db: %w", err)
 	}
 
 	store := &Store{db: db}
@@ -47,40 +52,33 @@ func (s *Store) init() error {
 		return fmt.Errorf("could not create users table: %w", err)
 	}
 
-	_, err = s.GetByUsername("kaya")
-	if err != nil {
-		log.Println("Admin user 'kaya' not found, creating..")
-		hashedPassword := "$2a$10$T.H/yJ9.x4.A.3.A.3.A.uL5q5t5r5e5w5e5r5t5y5u5i5o5p5q"
-		if _, err := s.Create("kaya", hashedPassword); err != nil {
-			log.Printf("Could not create admin user: %v", err)
-		}
-	}
-
 	return nil
 }
 
-func (s *Store) Create(username, password string) (*User, error) {
+func (s *Store) Create(ctx context.Context, username, passwordHash string) (*User, error) {
 	user := &User{
 		ID:           "user_" + uuid.New().String(), // Используем UUID для ID
 		Username:     username,
-		PasswordHash: password,
+		PasswordHash: passwordHash,
 	}
 	query := "INSERT INTO users (id, username, password_hash) VALUES (?, ?, ?)"
-	_, err := s.db.Exec(query, user.ID, user.Username, user.PasswordHash)
+	_, err := s.db.ExecContext(ctx, query, user.ID, user.Username, user.PasswordHash)
 	if err != nil {
+		if strings.Contains(err.Error(), "UNIQUE constraint failed") {
+			return nil, ErrUserExists
+		}
 		return nil, fmt.Errorf("could not insert user %w", err)
 	}
 	return user, nil
 }
 
-func (s *Store) GetByUsername(username string) (*User, error) {
+func (s *Store) GetByUsername(ctx context.Context, username string) (*User, error) {
 	user := &User{}
 	query := "SELECT id, username, password_hash FROM users WHERE username = ?"
-	err := s.db.QueryRow(query, username).Scan(&user.ID, &user.Username, &user.PasswordHash)
+	err := s.db.QueryRowContext(ctx, query, username).Scan(&user.ID, &user.Username, &user.PasswordHash)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			// Это не ошибка, а нормальная ситуация, когда юзер не найден.
-			return nil, errors.New("user not found")
+			return nil, ErrUserNotFound
 		}
 		return nil, fmt.Errorf("could not get user: %w", err)
 	}

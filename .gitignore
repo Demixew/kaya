@@ -20,7 +20,7 @@ yarn-error.log*
 *.so
 *.dylib
 
-# Имя вашего бинарного файла бэкенда (пока хз)
+# Имя бинарного файла бэкенда (пока хз)
 /backend/backend
 /backend/kaya
 
