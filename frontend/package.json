@@ -1,34 +1,26 @@
 {
   "name": "kaya-frontend",
-  "version": "1.0.0",
-  "description": "Beautiful landing page for Kaya service",
   "private": true,
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
-  },
+  "version": "0.0.1",
+  "type": "module",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
+  "dependencies": {
+    "@tiptap/extension-placeholder": "^2.0.0-beta.221",
+    "@tiptap/extension-task-item": "^2.0.0-beta.221",
+    "@tiptap/extension-task-list": "^2.0.0-beta.221",
+    "@tiptap/starter-kit": "^2.0.0-beta.221",
+    "@tiptap/vue-3": "^2.0.0-beta.221",
+    "vue": "^3.2.47"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@types/node": "^18.14.0",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.4",
+    "vue-tsc": "^1.2.0"
   }
 }
